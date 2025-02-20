@@ -7,14 +7,16 @@ import java.util.List;
 
 public class FileParser{
     public static void main(String[] args){
-        try{
-            File file = new File("file.txt"); // nanti nama filenya diganti
-            BufferedReader br = new BufferedReader(new FileReader(file));
+        File file = new File("file.txt"); // nanti nama filenya diganti
+
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
 
             String firstline = br.readLine();
-            if (firstline == null){
-                System.out.println("File is empty");
+            if (firstline == null || firstline.trim().isEmpty()) {
+                System.out.println("File is empty or invalid");
+                return;
             }
+            
             // Read N, M, and P
             String[] parameters = firstline.split(" ");
             int N = Integer.parseInt(parameters[0]);
