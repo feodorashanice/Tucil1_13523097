@@ -48,12 +48,8 @@ public class Board {
     }
     // Print the board
     public void printBoard() {
-        for (int i = 0; i < N; i++) {
-            for (int j = 0; j < M; j++) {
-                System.out.print(board[i][j] == '\u0000' ? '.' : board[i][j]);
-                System.out.print(" ");
-            }
-            System.out.println();
+        for (char[] row : board) {
+            System.out.println(new String(row));
         }
     }
     // Get board
