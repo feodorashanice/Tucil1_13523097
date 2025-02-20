@@ -15,13 +15,16 @@ public class Board {
             }
         }
     }
-    // Boolean to check if a piece can be placed on the board (position is empty)
+    // Boolean to check if a piece can be placed on the board (position is not out of bounds and empty)
     public boolean placeValid(char[][] piece, int row, int col) {
+        if (row + piece.length > N || col + piece[0].length > M) {
+            return false;
+        } // False due to out of bounds
         for (int i = 0; i < piece.length; i++) {
             for (int j = 0; j < piece[0].length; j++) {
                 if (piece[i][j] != '.' && board[row + i][col + j] != '.') {
                     return false;   
-                }
+                } // False due to overlapping pieces
             }
         }
         return true;
