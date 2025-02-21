@@ -15,6 +15,15 @@ public class Board {
             }
         }
     }
+
+    // Getter
+    public int getN(){
+        return N;
+    }
+    public int getM(){
+        return M;
+    }
+    
     // Boolean to check if a piece can be placed on the board (position is not out of bounds and empty)
     public boolean placeValid(char[][] piece, int row, int col){
         if (row + piece.length > N || col + piece[0].length > M){
