@@ -23,7 +23,7 @@ public class Piece{
         return id;
     }
 
-    private char[][] rotate90() {
+    public char[][] rotate90() {
         int rows = piece.length, cols = piece[0].length;
         char[][] rotated = new char[cols][rows];
         for (int i = 0; i < rows; i++)
@@ -32,7 +32,7 @@ public class Piece{
         return rotated;
     }
 
-    private char[][] flipHorizontal() {
+    public char[][] flipHorizontal() {
         int rows = piece.length, cols = piece[0].length;
         char[][] flipped = new char[rows][cols];
         for (int i = 0; i < rows; i++)
