@@ -1,77 +1,71 @@
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader; 
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List; 
+import java.util.List;
 
-public class FileParser{
-    public static void main(String[] args){
-        File file = new File("file.txt"); // nanti nama filenya diganti
-
-        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-
-            String firstline = br.readLine();
-            if (firstline == null || firstline.trim().isEmpty()) {
-                System.out.println("File is empty or invalid");
-                return;
+public class FileParser {
+    public static ParsedInput parseFile(String filename) throws IOException {
+        File file = new File(filename);
+        try (BufferedReader br = new BufferedReader(new FileReader(file))){
+            String firstLine = br.readLine();
+            if (firstLine == null || firstLine.trim().isEmpty()){
+                throw new IOException("File is empty or invalid");
             }
             
             // Read N, M, and P
-            String[] parameters = firstline.split(" ");
+            String[] parameters = firstLine.split(" ");
             int N = Integer.parseInt(parameters[0]);
             int M = Integer.parseInt(parameters[1]);
             int P = Integer.parseInt(parameters[2]);
 
-            br.readLine(); // selalu default
+            br.readLine(); // always DEFAULT
 
             // Read puzzle pieces
-            List<char[][]> pieces = new ArrayList<>();
+            List<Piece> pieces = new ArrayList<>();
             List<String> currentPieceLines = new ArrayList<>();
+            char id = 'A';
 
             String line;
-            while ((line = br.readLine()) != null) {
-                if (!line.isEmpty()) {
+            while ((line = br.readLine()) != null){
+                if (!line.isEmpty()){
                     currentPieceLines.add(line);
                 } else {
-                    if (!currentPieceLines.isEmpty()) {
-                        pieces.add(convertToCharMatrix(currentPieceLines));
+                    if (!currentPieceLines.isEmpty()){
+                        pieces.add(new Piece(convertToCharMatrix(currentPieceLines), id++));
                         currentPieceLines.clear();
                     }
                 }
             }
-
-            if (!currentPieceLines.isEmpty()) {
-                pieces.add(convertToCharMatrix(currentPieceLines));
+            if (!currentPieceLines.isEmpty()){
+                pieces.add(new Piece(convertToCharMatrix(currentPieceLines), id++));
             }
-
-            br.close();
-
-            // for (int i = 0; i < pieces.size(); i++) {
-            //     System.out.println("Piece " + (i + 1) + ":");
-            //     printMatrix(pieces.get(i));
-            //     System.out.println();
-            // }
-            // ini kalo mau tes diprint
-        } catch (IOException e) {
-            e.printStackTrace();
+            return new ParsedInput(N, M, P, pieces);
         }
     }
+
     // Convert List<String> to char[][]
-    private static char[][] convertToCharMatrix(List<String> pieceLines) {
+    private static char[][] convertToCharMatrix(List<String> pieceLines){
         int rows = pieceLines.size();
         int cols = pieceLines.get(0).length();
         char[][] piece = new char[rows][cols];
 
-        for (int i = 0; i < rows; i++) {
+        for (int i = 0; i < rows; i++){
             piece[i] = pieceLines.get(i).toCharArray();
         }
-
         return piece;
     }
-    // private static void printMatrix(char[][] matrix) {
-    //     for (char[] row : matrix) {
-    //         System.out.println(new String(row));
-    //     }
-    // }
+}
+
+class ParsedInput {
+    public int N, M, P;
+    public List<Piece> pieces;
+
+    public ParsedInput(int N, int M, int P, List<Piece> pieces) {
+        this.N = N;
+        this.M = M;
+        this.P = P;
+        this.pieces = pieces;
+    }
 }
