@@ -59,6 +59,17 @@ public class Board {
             }
         }
     }
+    // Check if the board is full
+    public boolean isFull(){
+        for (int i = 0; i < N; i++){
+            for (int j = 0; j < M; j++){
+                if (board[i][j] == '.'){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
     // Print the board
     public void printBoard(){
         for (char[] row : board){
