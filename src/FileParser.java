@@ -48,7 +48,7 @@ public class FileParser {
             }
 
             if (pieces.size() != P) {
-                throw new IOException("Expected " + P + " pieces, but found " + pieces.size() + ". Check file format: N M P on first line, DEFAULT on second, followed by P pieces (each piece on separate lines, no empty lines between pieces).");
+                throw new IOException("Expected " + P + " pieces, but found " + pieces.size() + ".");
             }
             return new ParsedInput(N, M, P, pieces);
         }
