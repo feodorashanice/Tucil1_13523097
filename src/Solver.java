@@ -81,12 +81,4 @@ public class Solver {
     public Board getBoard() {
         return board;
     }
-
-    // Helper method to print a char matrix
-    private static void printMatrix(char[][] matrix) {
-        for (char[] row : matrix) {
-            System.out.println(new String(row));
-        }
-        System.out.println();
-    }
 }
