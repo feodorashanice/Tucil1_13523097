@@ -23,12 +23,14 @@ public class Piece{
         return id;
     }
 
-    public char[][] rotate90() {
+    public char[][] rotate90(char[][] piece) {
         int rows = piece.length, cols = piece[0].length;
         char[][] rotated = new char[cols][rows];
-        for (int i = 0; i < rows; i++)
-            for (int j = 0; j < cols; j++)
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
                 rotated[j][rows - 1 - i] = piece[i][j];
+            }
+        }
         return rotated;
     }
 
@@ -39,5 +41,9 @@ public class Piece{
             for (int j = 0; j < cols; j++)
                 flipped[i][cols - 1 - j] = piece[i][j];
         return flipped;
+    }
+
+    public char[][] rotateAfterFlip() {
+        return rotate90(flipHorizontal());
     }
 }
