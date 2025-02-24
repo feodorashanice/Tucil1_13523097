@@ -81,13 +81,6 @@ public class Board {
         }
         return true;
     }
-    private static void printMatrix(char[][] matrix) {
-        for (char[] row : matrix) {
-            System.out.println(new String(row));
-        }
-        System.out.println();
-    }
-
     public void printBoard() {
         for (char[] row : board) {
             StringBuilder line = new StringBuilder();
@@ -106,33 +99,33 @@ public class Board {
     
     private String getColor(char id){
         switch (id){
-            case 'A': return "\u001B[31m"; // Red
-            case 'B': return "\u001B[32m"; // Green
-            case 'C': return "\u001B[33m"; // Yellow
-            case 'D': return "\u001B[34m"; // Blue
-            case 'E': return "\u001B[35m"; // Magenta
-            case 'F': return "\u001B[36m"; // Cyan
-            case 'G': return "\u001B[37m"; // White
-            case 'H': return "\u001B[91m"; // Bright Red
-            case 'I': return "\u001B[92m"; // Bright Green
-            case 'J': return "\u001B[93m"; // Bright Yellow
-            case 'K': return "\u001B[94m"; // Bright Blue
-            case 'L': return "\u001B[95m"; // Bright Magenta
-            case 'M': return "\u001B[96m"; // Bright Cyan
-            case 'N': return "\u001B[97m"; // Bright White
-            case 'O': return "\u001B[30m"; // Black
-            case 'P': return "\u001B[90m"; // Dark Gray
-            case 'Q': return "\u001B[40m"; // Background Black
-            case 'R': return "\u001B[41m"; // Background Red
-            case 'S': return "\u001B[42m"; // Background Green
-            case 'T': return "\u001B[43m"; // Background Yellow
-            case 'U': return "\u001B[44m"; // Background Blue
-            case 'V': return "\u001B[45m"; // Background Magenta
-            case 'W': return "\u001B[46m"; // Background Cyan
-            case 'X': return "\u001B[47m"; // Background White
-            case 'Y': return "\u001B[100m"; // Background Dark Gray
-            case 'Z': return "\u001B[101m"; // Background Bright Red
-            default: return "\u001B[0m"; // Default (no color)
+            case 'A': return "\u001B[31m";
+            case 'B': return "\u001B[32m";
+            case 'C': return "\u001B[33m";
+            case 'D': return "\u001B[34m";
+            case 'E': return "\u001B[35m";
+            case 'F': return "\u001B[36m";
+            case 'G': return "\u001B[37m";
+            case 'H': return "\u001B[91m";
+            case 'I': return "\u001B[92m";
+            case 'J': return "\u001B[93m";
+            case 'K': return "\u001B[94m";
+            case 'L': return "\u001B[95m";
+            case 'M': return "\u001B[96m";
+            case 'N': return "\u001B[97m";
+            case 'O': return "\u001B[30m";
+            case 'P': return "\u001B[90m";
+            case 'Q': return "\u001B[40m";
+            case 'R': return "\u001B[41m";
+            case 'S': return "\u001B[42m";
+            case 'T': return "\u001B[43m";
+            case 'U': return "\u001B[44m";
+            case 'V': return "\u001B[45m";
+            case 'W': return "\u001B[46m";
+            case 'X': return "\u001B[47m";
+            case 'Y': return "\u001B[100m";
+            case 'Z': return "\u001B[101m";
+            default: return "\u001B[0m";
         }
     }
 }

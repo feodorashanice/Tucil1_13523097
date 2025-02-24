@@ -34,7 +34,7 @@ public class Main {
                 writer.println(new String(row));
             }
             writer.close();
-            System.out.println("Solusi disimpan ke 'solution.txt'");
+            System.out.println("Solusi disimpan");
         } catch (IOException e) {
             System.err.println("Error saving solution: " + e.getMessage());
         }
