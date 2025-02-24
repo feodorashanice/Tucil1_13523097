@@ -8,9 +8,9 @@ import java.util.List;
 public class FileParser {
     public static ParsedInput parseFile(String filename) throws IOException {
         File file = new File(filename);
-        try (BufferedReader br = new BufferedReader(new FileReader(file))){
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String firstLine = br.readLine();
-            if (firstLine == null || firstLine.trim().isEmpty()){
+            if (firstLine == null || firstLine.trim().isEmpty()) {
                 throw new IOException("File is empty or invalid");
             }
             
@@ -19,42 +19,71 @@ public class FileParser {
             int N = Integer.parseInt(parameters[0]);
             int M = Integer.parseInt(parameters[1]);
             int P = Integer.parseInt(parameters[2]);
+            System.out.println("Board size: " + N + "x" + M + ", Pieces: " + P);
 
             br.readLine(); // always DEFAULT
 
-            // Read puzzle pieces
-            List<Piece> pieces = new ArrayList<>();
-            List<String> currentPieceLines = new ArrayList<>();
-            char id = 'A';
-
+            List<String> allLines = new ArrayList<>();
             String line;
-            while ((line = br.readLine()) != null){
-                if (!line.isEmpty()){
-                    currentPieceLines.add(line);
-                } else {
-                    if (!currentPieceLines.isEmpty()){
-                        pieces.add(new Piece(convertToCharMatrix(currentPieceLines), id++));
-                        currentPieceLines.clear();
-                    }
+            while ((line = br.readLine()) != null) {
+                if (!line.trim().isEmpty()) {
+                    allLines.add(line);
                 }
             }
-            if (!currentPieceLines.isEmpty()){
-                pieces.add(new Piece(convertToCharMatrix(currentPieceLines), id++));
+
+            if (allLines.size() % P != 0) {
+                throw new IOException("Invalid format: Number of lines (" + allLines.size() + ") must be divisible by number of pieces (" + P + "). Expected " + P + " pieces, each with the same number of lines.");
+            }
+
+            List<Piece> pieces = new ArrayList<>();
+            char id = 'A';
+            int linesPerPiece = allLines.size() / P;
+
+            for (int i = 0; i < P; i++) {
+                int start = i * linesPerPiece;
+                int end = start + linesPerPiece;
+                List<String> currentPieceLines = allLines.subList(start, end);
+                char[][] piece = convertToCharMatrix(currentPieceLines);
+                System.out.println("Parsed piece " + id + ":");
+                printMatrix(piece);
+                pieces.add(new Piece(piece, id++));
+            }
+
+            if (pieces.size() != P) {
+                throw new IOException("Expected " + P + " pieces, but found " + pieces.size() + ". Check file format: N M P on first line, DEFAULT on second, followed by P pieces (each piece on separate lines, no empty lines between pieces).");
             }
             return new ParsedInput(N, M, P, pieces);
         }
     }
 
-    // Convert List<String> to char[][]
-    private static char[][] convertToCharMatrix(List<String> pieceLines){
+    // Convert List<String> to char[][] with padding
+    private static char[][] convertToCharMatrix(List<String> pieceLines) {
         int rows = pieceLines.size();
-        int cols = pieceLines.get(0).length();
+        int cols = 0;
+        for (String line : pieceLines) {
+            cols = Math.max(cols, line.length());
+        }
         char[][] piece = new char[rows][cols];
 
-        for (int i = 0; i < rows; i++){
-            piece[i] = pieceLines.get(i).toCharArray();
+        for (int i = 0; i < rows; i++) {
+            String line = pieceLines.get(i);
+            for (int j = 0; j < cols; j++) {
+                if (j < line.length()) {
+                    piece[i][j] = line.charAt(j);
+                } else {
+                    piece[i][j] = '.';
+                }
+            }
         }
         return piece;
+    }
+
+    // Helper method to print a char matrix
+    private static void printMatrix(char[][] matrix) {
+        for (char[] row : matrix) {
+            System.out.println(new String(row));
+        }
+        System.out.println();
     }
 }
 

@@ -27,40 +27,56 @@ public class Board {
         return board;
     }
     
-    // Boolean to check if a piece can be placed on the board (position is not out of bounds and empty)
-    public boolean placeValid(char[][] piece, int row, int col){
-        if (row + piece.length > N || col + piece[0].length > M){
+    public boolean placeValid(char[][] piece, int row, int col) {
+        if (row + piece.length > N || col + piece[0].length > M) {
+            System.out.println("Placement invalid: Out of bounds at (" + row + "," + col + ") for piece:");
+            printMatrix(piece);
             return false;
-        } // False due to out of bounds
-        for (int i = 0; i < piece.length; i++){
-            for (int j = 0; j < piece[0].length; j++){
-                if (piece[i][j] != '.' && board[row + i][col + j] != '.'){
-                    return false;   
-                } // False due to overlapping pieces
+        }
+        for (int i = 0; i < piece.length; i++) {
+            for (int j = 0; j < piece[0].length; j++) {
+                if (piece[i][j] != '.' && board[row + i][col + j] != '.') {
+                    System.out.println("Placement invalid: Overlap at (" + (row + i) + "," + (col + j) + ") for piece:");
+                    printMatrix(piece);
+                    return false;
+                }
             }
         }
+        System.out.println("Placement valid at (" + row + "," + col + ") for piece:");
+        printMatrix(piece);
         return true;
     }
-    // Place a piece on the board
-    public void placePiece(char[][] piece, int row, int col){
-        if (!placeValid(piece, row, col)) return;
-        for (int i = 0; i < piece.length; i++){
-            for (int j = 0; j < piece[0].length; j++){
-                if (row + i < N && col + j < M && piece[i][j] != '.'){
+
+    public void placePiece(char[][] piece, int row, int col) {
+        if (!placeValid(piece, row, col)) {
+            System.out.println("Skipping placement due to invalid position.");
+            return;
+        }
+        System.out.println("Placing piece at (" + row + "," + col + "):");
+        printMatrix(piece);
+        for (int i = 0; i < piece.length; i++) {
+            for (int j = 0; j < piece[0].length; j++) {
+                if (row + i < N && col + j < M && piece[i][j] != '.') {
                     board[row + i][col + j] = piece[i][j];
                 }
             }
         }
+        System.out.println("Current board state:");
+        printBoard();
     }
-    // Remove a piece from the board
-    public void removePiece(char[][] piece, int row, int col){
-        for (int i = 0; i < piece.length; i++){
-            for (int j = 0; j < piece[0].length; j++){
-                if (row + i < N && col + j < M && piece[i][j] != '.'){
+
+    public void removePiece(char[][] piece, int row, int col) {
+        System.out.println("Removing piece at (" + row + "," + col + "):");
+        printMatrix(piece);
+        for (int i = 0; i < piece.length; i++) {
+            for (int j = 0; j < piece[0].length; j++) {
+                if (row + i < N && col + j < M && piece[i][j] != '.') {
                     board[row + i][col + j] = '.';
                 }
             }
         }
+        System.out.println("Current board state after removal:");
+        printBoard();
     }
     // Check if the board is full
     public boolean isFull(){
@@ -73,19 +89,28 @@ public class Board {
         }
         return true;
     }
-    public void printBoard(){
-        for (char[] row : board){
+    private static void printMatrix(char[][] matrix) {
+        for (char[] row : matrix) {
+            System.out.println(new String(row));
+        }
+        System.out.println();
+    }
+
+    public void printBoard() {
+        System.out.println("Board state:");
+        for (char[] row : board) {
             StringBuilder line = new StringBuilder();
-            for (char cell : row){
-                if (cell == '.'){
+            for (char cell : row) {
+                if (cell == '.') {
                     line.append(cell).append(" ");
-                } else{
+                } else {
                     String color = getColor(cell);
                     line.append(color).append(cell).append("\u001B[0m ").append(" ");
                 }
             }
             System.out.println(line.toString());
         }
+        System.out.println();
     }
     
     private String getColor(char id){
