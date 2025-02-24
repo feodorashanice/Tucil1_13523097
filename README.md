@@ -5,7 +5,10 @@ Penyelesaian IQ Puzzler Pro dengan Algoritma Brute Force
 | 13523097  | Shanice Feodora Tjahjono    |
 
 ## About this Program
-## Program Requirements and Installation (optional)
+Modifikasi dari permainan IQ Puzzler Pro, di mana ukuran papan serta blok/piece berupa masukan pengguna. Program ini memiliki fitur transformasi blok, namun tidak menerima bentuk blok yang tidak beraturan (irregular).
 ## How to Compile (optional)
+javac src\*.java
 ## How to Run
+java -cp src Main
 ## How to Use
+Masukkan nama file txt (soal) yang memiliki ukuran papan, serta keterangan blok-blok. Program akan menjalankan solver untuk mencari solusi dari spesifikasi yang diberikan dalam soal.
