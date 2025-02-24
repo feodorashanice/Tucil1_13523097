@@ -15,8 +15,7 @@ public class Piece {
         for (int i = 0; i < rows; i++)
             for (int j = 0; j < cols; j++)
                 copy[i][j] = piece[i][j];
-        System.out.println("Getting piece " + id + ":");
-        printMatrix(copy);
+        // printMatrix(copy);
         return copy;
     }
 
@@ -34,8 +33,7 @@ public class Piece {
                 rotated[j][rows - 1 - i] = inputPiece[i][j];
             }
         }
-        System.out.println("Rotated 90° piece " + id + ":");
-        printMatrix(rotated);
+        // printMatrix(rotated);
         return rotated;
     }
 
@@ -46,8 +44,7 @@ public class Piece {
         for (int i = 0; i < rows; i++)
             for (int j = 0; j < cols; j++)
                 flipped[i][cols - 1 - j] = piece[i][j];
-        System.out.println("Flipped horizontally piece " + id + ":");
-        printMatrix(flipped);
+        // printMatrix(flipped);
         return flipped;
     }
 
@@ -55,8 +52,7 @@ public class Piece {
     public char[][] rotateAfterFlip() {
         char[][] flipped = flipHorizontal();
         char[][] rotated = rotate90(flipped);
-        System.out.println("Rotated after flip piece " + id + ":");
-        printMatrix(rotated);
+        // printMatrix(rotated);
         return rotated;
     }
 

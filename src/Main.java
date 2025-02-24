@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter test case file (.txt): ");
+        System.out.print("Masukkan file test case (.txt): ");
         String filename = scanner.nextLine();
 
         try {
@@ -14,7 +14,8 @@ public class Main {
             if (solver.solveDetails()) {
                 solver.getBoard().printBoard();
                 System.out.println("Apakah Anda ingin menyimpan hasil ke file? (y/n)");
-                if (scanner.nextLine().equalsIgnoreCase("Y")){
+                String response = scanner.nextLine().trim();
+                if (response.equalsIgnoreCase("Y")) {
                     saveSolution(solver.getBoard());
                 }
             } else {

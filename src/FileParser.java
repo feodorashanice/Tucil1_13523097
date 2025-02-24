@@ -19,7 +19,6 @@ public class FileParser {
             int N = Integer.parseInt(parameters[0]);
             int M = Integer.parseInt(parameters[1]);
             int P = Integer.parseInt(parameters[2]);
-            System.out.println("Board size: " + N + "x" + M + ", Pieces: " + P);
 
             br.readLine(); // always DEFAULT
 
@@ -44,8 +43,7 @@ public class FileParser {
                 int end = start + linesPerPiece;
                 List<String> currentPieceLines = allLines.subList(start, end);
                 char[][] piece = convertToCharMatrix(currentPieceLines);
-                System.out.println("Parsed piece " + id + ":");
-                printMatrix(piece);
+                // printMatrix(piece);
                 pieces.add(new Piece(piece, id++));
             }
 

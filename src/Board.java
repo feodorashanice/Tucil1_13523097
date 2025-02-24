@@ -29,31 +29,26 @@ public class Board {
     
     public boolean placeValid(char[][] piece, int row, int col) {
         if (row + piece.length > N || col + piece[0].length > M) {
-            System.out.println("Placement invalid: Out of bounds at (" + row + "," + col + ") for piece:");
-            printMatrix(piece);
+            // printMatrix(piece);
             return false;
         }
         for (int i = 0; i < piece.length; i++) {
             for (int j = 0; j < piece[0].length; j++) {
                 if (piece[i][j] != '.' && board[row + i][col + j] != '.') {
-                    System.out.println("Placement invalid: Overlap at (" + (row + i) + "," + (col + j) + ") for piece:");
-                    printMatrix(piece);
+                    // printMatrix(piece);
                     return false;
                 }
             }
         }
-        System.out.println("Placement valid at (" + row + "," + col + ") for piece:");
-        printMatrix(piece);
+        // printMatrix(piece);
         return true;
     }
 
     public void placePiece(char[][] piece, int row, int col) {
         if (!placeValid(piece, row, col)) {
-            System.out.println("Skipping placement due to invalid position.");
             return;
         }
-        System.out.println("Placing piece at (" + row + "," + col + "):");
-        printMatrix(piece);
+        // printMatrix(piece);
         for (int i = 0; i < piece.length; i++) {
             for (int j = 0; j < piece[0].length; j++) {
                 if (row + i < N && col + j < M && piece[i][j] != '.') {
@@ -61,13 +56,11 @@ public class Board {
                 }
             }
         }
-        System.out.println("Current board state:");
         printBoard();
     }
 
     public void removePiece(char[][] piece, int row, int col) {
-        System.out.println("Removing piece at (" + row + "," + col + "):");
-        printMatrix(piece);
+        // printMatrix(piece);
         for (int i = 0; i < piece.length; i++) {
             for (int j = 0; j < piece[0].length; j++) {
                 if (row + i < N && col + j < M && piece[i][j] != '.') {
@@ -75,7 +68,6 @@ public class Board {
                 }
             }
         }
-        System.out.println("Current board state after removal:");
         printBoard();
     }
     // Check if the board is full
@@ -97,7 +89,6 @@ public class Board {
     }
 
     public void printBoard() {
-        System.out.println("Board state:");
         for (char[] row : board) {
             StringBuilder line = new StringBuilder();
             for (char cell : row) {
